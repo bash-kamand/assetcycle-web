@@ -1,387 +1,268 @@
+import ROICalculator from "./components/ROICalculator";
+
+const PHOTOS = {
+  facility:   "https://images.unsplash.com/photo-1637296001570-718b84715a70?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  equipment:  "https://images.unsplash.com/photo-1762343142170-13e4f4db0dc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+  inspection: "https://images.unsplash.com/photo-1763478464037-419d72b545bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080",
+};
+
+const Logo = ({ size = 30, stroke = "#ffffff" }: { size?: number; stroke?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+    <path d="M 92 50 A 42 42 0 1 0 72.7 79.7" stroke={stroke} strokeWidth="11" strokeLinecap="round" fill="none"/>
+    <path d="M 72.7 79.7 A 42 42 0 0 0 92 50" stroke="#1ab8e8" strokeWidth="11" strokeLinecap="round" fill="none"/>
+    <path d="M 35 70 L 50 30 L 65 70 M 40.5 58 L 59.5 58" stroke={stroke} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+  </svg>
+);
+
+const features = [
+  { n: "01", title: "Fixed Asset Register",    desc: "Every asset — plant, machinery, building services, infrastructure — centralised in one searchable register with full depreciation history." },
+  { n: "02", title: "Depreciation Engine",      desc: "Straight-line and declining balance calculated automatically. Export ATO-compliant schedules directly for your accountant." },
+  { n: "03", title: "Work Orders",              desc: "Log maintenance jobs against specific assets. Track labour hours, actual vs estimated cost, and build a complete service history." },
+  { n: "04", title: "Intelligence Engine",      desc: "Learns from every disposal and maintenance event — refining lifespan and cost estimates using your real portfolio data over time." },
+  { n: "05", title: "Lifecycle Forecasting",    desc: "Model deterioration curves, set condition breakpoints, and project 10-year capital expenditure for confident budget planning." },
+  { n: "06", title: "iPad Field View",          desc: "Scan QR codes on assets, record condition in the field, and raise work orders from the site without losing context." },
+];
+
 export default function Home() {
-  const features = [
-    { icon: "🏗️", title: "Fixed Asset Register", desc: "Every asset — plant, machinery, building services, infrastructure — in one searchable register with full depreciation history." },
-    { icon: "📉", title: "Depreciation Engine", desc: "Straight-line and declining balance run automatically. Export ATO-compliant schedules for your accountant." },
-    { icon: "🔧", title: "Work Orders", desc: "Log maintenance jobs against specific assets. Track labour hours, actual vs estimated cost, and full service history." },
-    { icon: "🧠", title: "Intelligence Engine", desc: "Learns from every disposal and maintenance event. Refines expected lifespan and cost estimates using your real portfolio data." },
-    { icon: "📊", title: "Lifecycle Forecasting", desc: "Model deterioration curves, set condition breakpoints, and project 10-year capital expenditure for budget planning." },
-    { icon: "📱", title: "iPad Field View", desc: "Scan QR codes on assets, record condition in the field, and raise work orders without leaving the site." },
-  ];
-
-  const LogoMark = ({ size = 36, light = false }: { size?: number; light?: boolean }) => (
-    <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M 92 50 A 42 42 0 1 0 72.7 79.7"
-            stroke={light ? "#ffffff" : "#1a2a3a"} strokeWidth="11" strokeLinecap="round" fill="none"/>
-      <path d="M 72.7 79.7 A 42 42 0 0 0 92 50"
-            stroke="#1ab8e8" strokeWidth="11" strokeLinecap="round" fill="none"/>
-      <path d="M 35 70 L 50 30 L 65 70 M 40.5 58 L 59.5 58"
-            stroke={light ? "#ffffff" : "#1a2a3a"} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-    </svg>
-  );
-
   return (
-    <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif", background: "#07111a", color: "#f0ede8", minHeight: "100vh" }}>
+    <div style={{ background: "#07111a", color: "#f2eeea", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+        * { box-sizing: border-box; }
 
-        .btn-primary {
-          display: inline-flex; align-items: center;
-          padding: 14px 36px;
-          background: #1ab8e8; color: #07111a;
-          font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700;
-          border-radius: 8px; text-decoration: none; letter-spacing: -0.01em;
-          transition: background 0.2s, transform 0.15s;
-        }
-        .btn-primary:hover { background: #2ec8f8; transform: translateY(-1px); }
-
-        .nav-link {
-          font-size: 14px; font-weight: 500;
-          color: rgba(240,237,232,0.55); text-decoration: none;
-          transition: color 0.15s;
-        }
-        .nav-link:hover { color: #f0ede8; }
-
-        .feature-card {
-          background: #0d1a27;
-          border: 1px solid rgba(240,237,232,0.07);
-          border-radius: 12px; padding: 28px;
-          transition: border-color 0.2s, transform 0.2s;
-        }
-        .feature-card:hover { border-color: rgba(26,184,232,0.3); transform: translateY(-2px); }
-
-        /* ── Self-learning timeline animation ── */
-        .learning-track {
-          display: flex;
-          flex-direction: column;
-          gap: 0;
-          text-align: left;
-          max-width: 520px;
-          margin: 0 auto;
-        }
-        .learning-row {
-          display: grid;
-          grid-template-columns: 80px 1fr;
-          gap: 16px;
-          align-items: center;
-          padding: 14px 0;
-          border-bottom: 1px solid rgba(240,237,232,0.08);
-          opacity: 0;
-          transform: translateX(-8px);
-        }
-        .learning-row:last-child { border-bottom: none; }
-        .learning-row.anim-1 { animation: rowIn 0.5s ease forwards 0.8s; }
-        .learning-row.anim-2 { animation: rowIn 0.5s ease forwards 1.3s; }
-        .learning-row.anim-3 { animation: rowIn 0.5s ease forwards 1.8s; }
-
-        .learning-label {
-          font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #1ab8e8;
-          white-space: nowrap;
-        }
-        .learning-text {
-          font-size: 15px; font-weight: 400;
-          color: rgba(240,237,232,0.7); line-height: 1.4;
-        }
-        .learning-text strong { color: #f0ede8; font-weight: 600; }
-
-        /* progress bar that fills on each row */
-        .learning-bar {
-          height: 2px;
-          background: rgba(26,184,232,0.15);
-          border-radius: 2px;
-          margin-top: 4px;
-          overflow: hidden;
-        }
-        .learning-bar-fill {
-          height: 100%;
-          background: #1ab8e8;
-          border-radius: 2px;
-          width: 0;
-        }
-        .anim-1 .learning-bar-fill { animation: barFill 1.2s ease forwards 1.0s; }
-        .anim-2 .learning-bar-fill { animation: barFill 1.2s ease forwards 1.5s; }
-        .anim-3 .learning-bar-fill { animation: barFill100 1.2s ease forwards 2.0s; }
-
-        @keyframes rowIn {
-          to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes barFill {
-          to { width: 55%; }
-        }
-        @keyframes barFill100 {
-          to { width: 100%; }
+        :root {
+          --bg: #07111a; --surface: #0d1a27;
+          --cyan: #1ab8e8; --text: #f2eeea;
+          --muted: rgba(242,238,234,0.45);
+          --rule: rgba(242,238,234,0.08);
         }
 
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up { animation: fadeUp 0.6s ease forwards; }
-        .d1 { animation-delay: 0.05s; opacity: 0; }
-        .d2 { animation-delay: 0.2s;  opacity: 0; }
-        .d3 { animation-delay: 0.35s; opacity: 0; }
-        .d4 { animation-delay: 0.5s;  opacity: 0; }
+        .mono { font-family: 'DM Mono', monospace; }
 
-        /* Pulsing dot on the active state */
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(1.4); }
-        }
-        .pulse-dot {
-          width: 6px; height: 6px; border-radius: 50%;
-          background: #1ab8e8; display: inline-block;
-          animation: pulse 2s ease infinite 2.8s;
-        }
+        .nav-link { font-size: 14px; font-weight: 400; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+        .nav-link:hover { color: var(--text); }
+
+        .cta { display: inline-flex; align-items: center; gap: 6px; padding: 12px 26px; background: var(--cyan); color: var(--bg); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; border-radius: 6px; text-decoration: none; letter-spacing: -0.01em; transition: background 0.15s, transform 0.1s; }
+        .cta:hover { background: #2ec8f8; transform: translateY(-1px); }
+        .cta-lg { padding: 15px 40px; font-size: 17px; }
+
+        /* Hero reveal */
+        @keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+        .u1 { animation: up 0.65s ease forwards 0.08s; opacity: 0; }
+        .u2 { animation: up 0.65s ease forwards 0.2s;  opacity: 0; }
+        .u3 { animation: up 0.65s ease forwards 0.34s; opacity: 0; }
+        .u4 { animation: up 0.65s ease forwards 0.48s; opacity: 0; }
+        .u5 { animation: up 0.65s ease forwards 0.62s; opacity: 0; }
+
+        /* Stage rows */
+        @keyframes stageIn { to { opacity:1; transform:translateX(0); } }
+        .stage { display:grid; grid-template-columns:88px 1px 1fr; gap:0 24px; align-items:start; padding:20px 0; border-bottom:1px solid var(--rule); opacity:0; transform:translateX(-8px); }
+        .stage:last-child { border-bottom:none; }
+        .s1 { animation: stageIn 0.45s ease forwards 0.75s; }
+        .s2 { animation: stageIn 0.45s ease forwards 1.15s; }
+        .s3 { animation: stageIn 0.45s ease forwards 1.55s; }
+        .stage-line { width:1px; background:var(--rule); align-self:stretch; }
+
+        /* Features */
+        .feat { display:grid; grid-template-columns:40px 220px 1fr; gap:0 32px; align-items:start; padding:26px 0; border-bottom:1px solid var(--rule); transition:background 0.15s; }
+        .feat:first-child { border-top:1px solid var(--rule); }
+        .feat:hover { background:rgba(26,184,232,0.025); }
+
+        /* Photos */
+        .photo-card { position:relative; overflow:hidden; border-radius:8px; }
+        .photo-card img { width:100%; height:100%; object-fit:cover; display:block; filter:brightness(0.45) saturate(0.6); transition:filter 0.35s, transform 0.4s; }
+        .photo-card:hover img { filter:brightness(0.58) saturate(0.8); transform:scale(1.03); }
+        .photo-overlay { position:absolute; bottom:0; left:0; right:0; padding:22px; background:linear-gradient(to top, rgba(7,17,26,0.96) 0%, transparent 100%); }
       `}</style>
 
-      {/* Nav */}
-      <header style={{
-        position: "sticky", top: 0, zIndex: 100,
-        background: "rgba(7,17,26,0.9)",
-        backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-        borderBottom: "1px solid rgba(240,237,232,0.06)"
-      }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto", padding: "0 28px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <LogoMark size={32} light />
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 16, letterSpacing: "0.02em", color: "#f0ede8" }}>Assetcycle</span>
+      {/* ── Nav ── */}
+      <header style={{ position:"sticky", top:0, zIndex:50, borderBottom:"1px solid var(--rule)", background:"rgba(7,17,26,0.93)", backdropFilter:"blur(16px)", WebkitBackdropFilter:"blur(16px)" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", padding:"0 40px", height:60, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <Logo size={26} />
+            <span className="mono" style={{ fontSize:12, fontWeight:500, letterSpacing:"0.08em", color:"var(--text)" }}>ASSETCYCLE</span>
           </div>
-          <nav style={{ display: "flex", alignItems: "center", gap: 28 }}>
+          <nav style={{ display:"flex", gap:28 }}>
             <a href="#features" className="nav-link">Features</a>
-            <a href="#how-it-works" className="nav-link">How it works</a>
+            <a href="#roi" className="nav-link">ROI Calculator</a>
             <a href="https://assetcycle.com.au" className="nav-link">Sign in</a>
           </nav>
-          <a href="https://assetcycle.com.au" className="btn-primary" style={{ padding: "9px 20px", fontSize: 14 }}>
-            Get started
-          </a>
+          <a href="https://assetcycle.com.au" className="cta">Get started</a>
         </div>
       </header>
 
-      {/* Hero */}
-      <section style={{ padding: "100px 24px 120px", position: "relative", overflow: "hidden" }}>
-        {/* Subtle grid */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "linear-gradient(rgba(26,184,232,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(26,184,232,0.03) 1px, transparent 1px)",
-          backgroundSize: "56px 56px"
-        }}/>
-        {/* Glow */}
-        <div style={{
-          position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
-          width: 800, height: 500,
-          background: "radial-gradient(ellipse, rgba(26,184,232,0.06) 0%, transparent 65%)",
-          pointerEvents: "none"
-        }}/>
+      {/* ── Hero ── */}
+      <section style={{ padding:"100px 40px 72px", maxWidth:1200, margin:"0 auto" }}>
+        <p className="u1 mono" style={{ fontSize:11, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:28 }}>
+          Fixed Asset Intelligence
+        </p>
+        <h1 className="u2" style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(48px, 5.8vw, 84px)", fontWeight:800, lineHeight:1.0, letterSpacing:"-0.04em", maxWidth:820, marginBottom:28 }}>
+          The asset management system that gets smarter every day.
+        </h1>
+        <p className="u3" style={{ fontSize:18, lineHeight:1.72, color:"var(--muted)", maxWidth:500, marginBottom:44, fontWeight:300 }}>
+          Every other platform gives you the same output in month&nbsp;12 as month&nbsp;1.<br/>Assetcycle doesn&apos;t.
+        </p>
+        <a href="https://assetcycle.com.au" className="cta cta-lg u4">Start free →</a>
 
-        <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "center", position: "relative" }}>
-
-          {/* Badge */}
-          <div className="fade-up d1" style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            background: "rgba(26,184,232,0.1)", border: "1px solid rgba(26,184,232,0.2)",
-            color: "#1ab8e8", fontSize: 11, fontWeight: 700, letterSpacing: "0.09em",
-            textTransform: "uppercase", padding: "6px 16px", borderRadius: 100, marginBottom: 32
-          }}>
-            <span className="pulse-dot" style={{ animationDelay: "0s" }}/>
-            Self-learning asset intelligence
-          </div>
-
-          {/* Headline */}
-          <h1 className="fade-up d2" style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: "clamp(40px, 5.5vw, 68px)",
-            fontWeight: 800, lineHeight: 1.08,
-            letterSpacing: "-0.03em", color: "#f0ede8", marginBottom: 24
-          }}>
-            The asset management system<br/>
-            <span style={{ color: "#1ab8e8" }}>that gets smarter every day.</span>
-          </h1>
-
-          {/* Sub */}
-          <p className="fade-up d3" style={{
-            fontSize: 17, lineHeight: 1.7, fontWeight: 300,
-            color: "rgba(240,237,232,0.55)",
-            maxWidth: 520, margin: "0 auto 56px"
-          }}>
-            Every other platform gives you the same output in month 12 as month 1.<br/>Assetcycle doesn&apos;t.
-          </p>
-
-          {/* Learning animation */}
-          <div className="fade-up d4" style={{
-            background: "#0d1a27",
-            border: "1px solid rgba(26,184,232,0.15)",
-            borderRadius: 16, padding: "28px 32px",
-            marginBottom: 48
-          }}>
-            <div className="learning-track">
-              <div className="learning-row anim-1">
-                <span className="learning-label">Day 1</span>
-                <div>
-                  <span className="learning-text"><strong>Industry benchmarks.</strong> Solid, standard, useful.</span>
-                  <div className="learning-bar"><div className="learning-bar-fill"/></div>
-                </div>
-              </div>
-              <div className="learning-row anim-2">
-                <span className="learning-label">Month 6</span>
-                <div>
-                  <span className="learning-text">Blending benchmarks with <strong>your actual data.</strong> More accurate than any competitor.</span>
-                  <div className="learning-bar"><div className="learning-bar-fill"/></div>
-                </div>
-              </div>
-              <div className="learning-row anim-3">
-                <span className="learning-label">Year 2</span>
-                <div>
-                  <span className="learning-text">Running on <strong>your portfolio&apos;s real history.</strong> No static system can touch it.</span>
-                  <div className="learning-bar"><div className="learning-bar-fill"/></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Single CTA */}
-          <a href="https://assetcycle.com.au" className="btn-primary">
-            Start free →
-          </a>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section style={{
-        background: "#0a1520",
-        borderTop: "1px solid rgba(240,237,232,0.06)",
-        borderBottom: "1px solid rgba(240,237,232,0.06)",
-        padding: "32px 24px"
-      }}>
-        <div style={{
-          maxWidth: 1140, margin: "0 auto",
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-          gap: 24, textAlign: "center"
-        }}>
+        {/* Learning stages */}
+        <div className="u5" style={{ marginTop:72, maxWidth:640 }}>
+          <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--muted)", marginBottom:4 }}>How it learns</p>
           {[
-            { v: "Australian", l: "hosted" },
-            { v: "ATO", l: "compliant" },
-            { v: "Real-time", l: "risk scoring" },
-            { v: "QR scan", l: "field-ready" },
-          ].map(({ v, l }) => (
-            <div key={l}>
-              <p style={{ fontSize: 18, fontWeight: 700, color: "#1ab8e8", marginBottom: 3, letterSpacing: "-0.01em" }}>{v}</p>
-              <p style={{ fontSize: 12, color: "rgba(240,237,232,0.35)", fontWeight: 400 }}>{l}</p>
+            { label:"Day 1",   bold:"Industry benchmarks.",      rest:"Solid, standard, useful." },
+            { label:"Month 6", bold:"Your data, blended in.",    rest:"More accurate than any competitor." },
+            { label:"Year 2",  bold:"Your portfolio's history.", rest:"No static system can touch it." },
+          ].map((s, i) => (
+            <div key={s.label} className={`stage s${i+1}`}>
+              <span className="mono" style={{ fontSize:11, fontWeight:500, color:"var(--cyan)", letterSpacing:"0.04em", paddingTop:2 }}>{s.label}</span>
+              <div className="stage-line"/>
+              <p style={{ fontSize:15 }}>
+                <strong style={{ color:"var(--text)", fontWeight:600 }}>{s.bold}</strong>
+                {" "}<span style={{ color:"var(--muted)", fontWeight:300 }}>{s.rest}</span>
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" style={{ padding: "100px 24px" }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1ab8e8", marginBottom: 16 }}>What it is</p>
-            <h2 style={{
-              fontFamily: "'Syne', sans-serif",
-              fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 800,
-              color: "#f0ede8", letterSpacing: "-0.025em", marginBottom: 14
-            }}>Everything in one platform</h2>
-            <p style={{ fontSize: 16, color: "rgba(240,237,232,0.45)", maxWidth: 440, margin: "0 auto" }}>
-              Built for facilities managers, property owners, and finance teams across Australia.
-            </p>
+      {/* ── Photo strip ── */}
+      <section style={{ padding:"0 40px 80px", maxWidth:1200, margin:"0 auto" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"2fr 1fr 1fr", gap:6, height:300 }}>
+          <div className="photo-card">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={PHOTOS.facility} alt="Industrial facility" loading="lazy"/>
+            <div className="photo-overlay">
+              <p className="mono" style={{ fontSize:9, color:"var(--cyan)", letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:4 }}>Asset Portfolio</p>
+              <p style={{ fontFamily:"Syne, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>$2.4M avg.</p>
+              <p style={{ fontSize:12, color:"var(--muted)", fontWeight:300 }}>assets under management per customer</p>
+            </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 16 }}>
-            {features.map((f) => (
-              <div key={f.title} className="feature-card">
-                <div style={{
-                  width: 42, height: 42, borderRadius: 10,
-                  background: "rgba(26,184,232,0.08)", border: "1px solid rgba(26,184,232,0.15)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 18, marginBottom: 18
-                }}>{f.icon}</div>
-                <h3 style={{ fontSize: 15, fontWeight: 700, color: "#f0ede8", marginBottom: 8 }}>{f.title}</h3>
-                <p style={{ fontSize: 13, lineHeight: 1.7, color: "rgba(240,237,232,0.45)", fontWeight: 300 }}>{f.desc}</p>
-              </div>
+          <div className="photo-card">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={PHOTOS.equipment} alt="Mechanical equipment" loading="lazy"/>
+            <div className="photo-overlay">
+              <p className="mono" style={{ fontSize:9, color:"var(--cyan)", letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:4 }}>Lifecycle data</p>
+              <p style={{ fontFamily:"Syne, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>11 yrs</p>
+              <p style={{ fontSize:12, color:"var(--muted)", fontWeight:300 }}>avg. life learned from your data</p>
+            </div>
+          </div>
+          <div className="photo-card">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={PHOTOS.inspection} alt="Field inspection" loading="lazy"/>
+            <div className="photo-overlay">
+              <p className="mono" style={{ fontSize:9, color:"var(--cyan)", letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:4 }}>Field Ready</p>
+              <p style={{ fontFamily:"Syne, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>QR scan</p>
+              <p style={{ fontSize:12, color:"var(--muted)", fontWeight:300 }}>site to register in seconds</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features ── */}
+      <section id="features" style={{ padding:"60px 40px", maxWidth:1200, margin:"0 auto" }}>
+        <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:36 }}>
+          Platform — What&apos;s included
+        </p>
+        {features.map(f => (
+          <div key={f.n} className="feat">
+            <span className="mono" style={{ fontSize:11, color:"rgba(242,238,234,0.25)", paddingTop:2 }}>{f.n}</span>
+            <h3 style={{ fontSize:14, fontWeight:600, color:"var(--text)", letterSpacing:"-0.01em", lineHeight:1.4 }}>{f.title}</h3>
+            <p style={{ fontSize:14, color:"var(--muted)", lineHeight:1.65, fontWeight:300 }}>{f.desc}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* ── Lifecycle diagram ── */}
+      <section style={{ padding:"60px 40px", maxWidth:1200, margin:"0 auto" }}>
+        <div style={{ background:"var(--surface)", border:"1px solid var(--rule)", borderRadius:12, padding:"40px 44px" }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:36, flexWrap:"wrap", gap:16 }}>
+            <div>
+              <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:12 }}>
+                Intelligence — forecast accuracy over time
+              </p>
+              <h2 style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(22px, 2.8vw, 34px)", fontWeight:800, letterSpacing:"-0.03em" }}>
+                Static systems can&apos;t learn.
+              </h2>
+            </div>
+            <div style={{ display:"flex", gap:24 }}>
+              {[{ c:"rgba(242,238,234,0.25)", dash:true, label:"Traditional platform" }, { c:"#1ab8e8", dash:false, label:"Assetcycle" }].map(l => (
+                <div key={l.label} style={{ display:"flex", gap:8, alignItems:"center" }}>
+                  <svg width="24" height="12"><line x1="0" y1="6" x2="24" y2="6" stroke={l.c} strokeWidth="2" strokeDasharray={l.dash ? "5,3" : "none"}/></svg>
+                  <span style={{ fontSize:12, color:"var(--muted)", fontFamily:"DM Mono, monospace" }}>{l.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <svg width="100%" viewBox="0 0 760 200" style={{ overflow:"visible", display:"block" }}>
+            {/* Grid */}
+            {[0,25,50,75,100].map(y => (
+              <g key={y}>
+                <line x1="52" y1={170 - y*1.6} x2="740" y2={170 - y*1.6} stroke="rgba(242,238,234,0.05)" strokeWidth="1"/>
+                <text x="44" y={174 - y*1.6} textAnchor="end" fill="rgba(242,238,234,0.25)" fontSize="9" fontFamily="DM Mono, monospace">{y}%</text>
+              </g>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why different */}
-      <section id="how-it-works" style={{
-        background: "#0a1520",
-        borderTop: "1px solid rgba(240,237,232,0.06)",
-        borderBottom: "1px solid rgba(240,237,232,0.06)",
-        padding: "100px 24px"
-      }}>
-        <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1ab8e8", marginBottom: 16 }}>Why it&apos;s different</p>
-            <h2 style={{
-              fontFamily: "'Syne', sans-serif",
-              fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 800,
-              color: "#f0ede8", letterSpacing: "-0.025em", marginBottom: 14
-            }}>Static systems can&apos;t learn.</h2>
-            <p style={{ fontSize: 16, color: "rgba(240,237,232,0.45)", maxWidth: 500, margin: "0 auto" }}>
-              Traditional platforms apply the same rules on day 365 as day 1. Assetcycle observes what actually happens in your portfolio and adjusts.
-            </p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 40 }}>
-            {[
-              { label: "Lifecycle forecasting", body: "Starts with industry averages. Shifts toward your actual replacement history. After 12 months it knows your portfolio, not the textbook." },
-              { label: "Cost predictions", body: "Early estimates are wide. As actual spend accumulates, the confidence interval narrows — surfacing the value of every data point." },
-              { label: "Risk scoring", body: "Rules-based on day one. Adapts based on which patterns actually predicted failures in your asset classes over time." },
-            ].map((item, i) => (
-              <div key={item.label}>
-                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#1ab8e8", textTransform: "uppercase", marginBottom: 14 }}>0{i + 1}</p>
-                <div style={{ width: "100%", height: 1, background: "rgba(26,184,232,0.2)", marginBottom: 22 }}/>
-                <h3 style={{ fontSize: 17, fontWeight: 700, color: "#f0ede8", marginBottom: 10 }}>{item.label}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(240,237,232,0.45)", fontWeight: 300 }}>{item.body}</p>
-              </div>
+            {/* Axes */}
+            <line x1="52" y1="10" x2="52" y2="172" stroke="rgba(242,238,234,0.1)" strokeWidth="1"/>
+            <line x1="52" y1="172" x2="742" y2="172" stroke="rgba(242,238,234,0.1)" strokeWidth="1"/>
+            {/* X labels */}
+            {[{x:130,l:"Day 1"},{x:400,l:"Month 6"},{x:670,l:"Year 2"}].map(({x,l}) => (
+              <text key={l} x={x} y="188" textAnchor="middle" fill="rgba(242,238,234,0.3)" fontSize="9" fontFamily="DM Mono, monospace">{l}</text>
             ))}
-          </div>
+            {/* Milestone verticals */}
+            {[130,400,670].map(x => (
+              <line key={x} x1={x} y1="172" x2={x} y2="10" stroke="rgba(242,238,234,0.04)" strokeWidth="1" strokeDasharray="4,4"/>
+            ))}
+            {/* Competitor line ~30% flat */}
+            <line x1="130" y1="122" x2="670" y2="122" stroke="rgba(242,238,234,0.22)" strokeWidth="1.5" strokeDasharray="6,4"/>
+            <text x="676" y="126" fill="rgba(242,238,234,0.3)" fontSize="9" fontFamily="DM Mono, monospace">~30%</text>
+            {/* Assetcycle fill area */}
+            <path d="M 130,122 C 220,122 300,112 400,90 C 490,70 570,26 670,10 L 670,122 Z" fill="rgba(26,184,232,0.07)"/>
+            {/* Assetcycle curve */}
+            <path d="M 130,122 C 220,122 300,112 400,90 C 490,70 570,26 670,10" stroke="#1ab8e8" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+            {/* Dots */}
+            {[{x:130,y:122,l:"Benchmarks"},{x:400,y:90,l:"Your data"},{x:670,y:10,l:"Your history"}].map(({x,y,l}) => (
+              <g key={l}>
+                <circle cx={x} cy={y} r="4" fill="#1ab8e8"/>
+                <text x={x+(x<400?8:-8)} y={y-8} textAnchor={x<400?"start":"end"} fill="#1ab8e8" fontSize="9" fontFamily="DM Mono, monospace">{l}</text>
+              </g>
+            ))}
+          </svg>
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ padding: "0 24px 100px", paddingTop: "80px" }}>
-        <div style={{
-          maxWidth: 1140, margin: "0 auto",
-          background: "#0d1a27",
-          border: "1px solid rgba(26,184,232,0.15)",
-          borderRadius: 20, padding: "80px 48px",
-          textAlign: "center", position: "relative", overflow: "hidden"
-        }}>
-          <div style={{
-            position: "absolute", top: -60, right: -60, width: 260, height: 260,
-            background: "radial-gradient(circle, rgba(26,184,232,0.08) 0%, transparent 70%)",
-            pointerEvents: "none"
-          }}/>
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1ab8e8", marginBottom: 18 }}>What happens next</p>
-          <h2 style={{
-            fontFamily: "'Syne', sans-serif",
-            fontSize: "clamp(26px, 3.5vw, 44px)", fontWeight: 800,
-            color: "#f0ede8", letterSpacing: "-0.025em", marginBottom: 16
-          }}>Start today. Get smarter over time.</h2>
-          <p style={{ fontSize: 16, color: "rgba(240,237,232,0.45)", maxWidth: 420, margin: "0 auto 44px", lineHeight: 1.7, fontWeight: 300 }}>
-            No credit card required. Import your first asset register in under 10 minutes.
-          </p>
-          <a href="https://assetcycle.com.au" className="btn-primary" style={{ fontSize: 16, padding: "15px 44px" }}>
-            Create free account →
-          </a>
+      {/* ── ROI Calculator ── */}
+      <section id="roi" style={{ padding:"60px 40px", maxWidth:1200, margin:"0 auto" }}>
+        <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:16 }}>
+          ROI Calculator
+        </p>
+        <h2 style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(28px, 3.2vw, 42px)", fontWeight:800, letterSpacing:"-0.035em", marginBottom:40 }}>
+          What&apos;s the cost of not knowing?
+        </h2>
+        <ROICalculator />
+      </section>
+
+      {/* ── CTA ── */}
+      <section style={{ padding:"60px 40px 100px", maxWidth:1200, margin:"0 auto" }}>
+        <div style={{ borderTop:"1px solid var(--rule)", paddingTop:80, display:"flex", justifyContent:"space-between", alignItems:"flex-end", flexWrap:"wrap", gap:40 }}>
+          <div>
+            <h2 style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(28px, 3.5vw, 48px)", fontWeight:800, letterSpacing:"-0.035em", maxWidth:520, lineHeight:1.05, marginBottom:14 }}>
+              Start today.<br/>Get smarter over time.
+            </h2>
+            <p style={{ fontSize:15, color:"var(--muted)", fontWeight:300 }}>No credit card. Import your first register in under 10 minutes.</p>
+          </div>
+          <a href="https://assetcycle.com.au" className="cta cta-lg">Create free account →</a>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: "1px solid rgba(240,237,232,0.06)", padding: "36px 28px" }}>
-        <div style={{
-          maxWidth: 1140, margin: "0 auto",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          flexWrap: "wrap", gap: 16
-        }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <LogoMark size={24} light />
-            <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: "0.02em", color: "#f0ede8" }}>Assetcycle</span>
+      {/* ── Footer ── */}
+      <footer style={{ borderTop:"1px solid var(--rule)", padding:"28px 40px" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto", display:"flex", justifyContent:"space-between", alignItems:"center", flexWrap:"wrap", gap:16 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <Logo size={20}/>
+            <span className="mono" style={{ fontSize:11, color:"var(--muted)", letterSpacing:"0.08em" }}>ASSETCYCLE</span>
           </div>
-          <p style={{ fontSize: 12, color: "rgba(240,237,232,0.25)" }}>© 2026 Assetcycle. Built in Australia.</p>
-          <a href="https://assetcycle.com.au" style={{ fontSize: 13, color: "#1ab8e8", textDecoration: "none", fontWeight: 500 }}>
-            Go to app →
-          </a>
+          <span style={{ fontSize:12, color:"rgba(242,238,234,0.2)" }}>© 2026 Assetcycle. Built in Australia.</span>
+          <a href="https://assetcycle.com.au" style={{ fontSize:12, color:"var(--cyan)", textDecoration:"none" }}>Go to app →</a>
         </div>
       </footer>
     </div>
