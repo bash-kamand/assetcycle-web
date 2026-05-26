@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <div style={{ background: "#07111a", color: "#f2eeea", minHeight: "100vh", fontFamily: "'DM Sans', sans-serif" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; }
 
         :root {
@@ -96,7 +96,7 @@ export default function Home() {
         <p className="u1 mono" style={{ fontSize:11, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:28 }}>
           Fixed Asset Intelligence
         </p>
-        <h1 className="u2" style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(48px, 5.8vw, 84px)", fontWeight:800, lineHeight:1.0, letterSpacing:"-0.04em", maxWidth:820, marginBottom:28 }}>
+        <h1 className="u2" style={{ fontFamily:"'Bricolage Grotesque', sans-serif", fontSize:"clamp(48px, 5.8vw, 84px)", fontWeight:800, lineHeight:1.0, letterSpacing:"-0.03em", maxWidth:820, marginBottom:28 }}>
           The asset management system that gets smarter every day.
         </h1>
         <p className="u3" style={{ fontSize:18, lineHeight:1.72, color:"var(--muted)", maxWidth:500, marginBottom:44, fontWeight:300 }}>
@@ -132,7 +132,7 @@ export default function Home() {
             <img src={PHOTOS.facility} alt="Industrial facility" loading="lazy"/>
             <div className="photo-overlay">
               <p className="mono" style={{ fontSize:9, color:"var(--cyan)", letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:4 }}>Asset Portfolio</p>
-              <p style={{ fontFamily:"Syne, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>$2.4M avg.</p>
+              <p style={{ fontFamily:"Bricolage Grotesque, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>$2.4M avg.</p>
               <p style={{ fontSize:12, color:"var(--muted)", fontWeight:300 }}>assets under management per customer</p>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function Home() {
             <img src={PHOTOS.equipment} alt="Mechanical equipment" loading="lazy"/>
             <div className="photo-overlay">
               <p className="mono" style={{ fontSize:9, color:"var(--cyan)", letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:4 }}>Lifecycle data</p>
-              <p style={{ fontFamily:"Syne, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>11 yrs</p>
+              <p style={{ fontFamily:"Bricolage Grotesque, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>11 yrs</p>
               <p style={{ fontSize:12, color:"var(--muted)", fontWeight:300 }}>avg. life learned from your data</p>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function Home() {
             <img src={PHOTOS.inspection} alt="Field inspection" loading="lazy"/>
             <div className="photo-overlay">
               <p className="mono" style={{ fontSize:9, color:"var(--cyan)", letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:4 }}>Field Ready</p>
-              <p style={{ fontFamily:"Syne, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>QR scan</p>
+              <p style={{ fontFamily:"Bricolage Grotesque, sans-serif", fontSize:24, fontWeight:800, letterSpacing:"-0.03em" }}>QR scan</p>
               <p style={{ fontSize:12, color:"var(--muted)", fontWeight:300 }}>site to register in seconds</p>
             </div>
           </div>
@@ -179,7 +179,7 @@ export default function Home() {
               <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:12 }}>
                 Intelligence — forecast accuracy over time
               </p>
-              <h2 style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(22px, 2.8vw, 34px)", fontWeight:800, letterSpacing:"-0.03em" }}>
+              <h2 style={{ fontFamily:"'Bricolage Grotesque', sans-serif", fontSize:"clamp(22px, 2.8vw, 34px)", fontWeight:800, letterSpacing:"-0.03em" }}>
                 Static systems can&apos;t learn.
               </h2>
             </div>
@@ -235,7 +235,7 @@ export default function Home() {
         <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:16 }}>
           ROI Calculator
         </p>
-        <h2 style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(28px, 3.2vw, 42px)", fontWeight:800, letterSpacing:"-0.035em", marginBottom:40 }}>
+        <h2 style={{ fontFamily:"'Bricolage Grotesque', sans-serif", fontSize:"clamp(28px, 3.2vw, 42px)", fontWeight:800, letterSpacing:"-0.035em", marginBottom:40 }}>
           What&apos;s the cost of not knowing?
         </h2>
         <ROICalculator />
@@ -245,7 +245,7 @@ export default function Home() {
       <section style={{ padding:"60px 40px 100px", maxWidth:1200, margin:"0 auto" }}>
         <div style={{ borderTop:"1px solid var(--rule)", paddingTop:80, display:"flex", justifyContent:"space-between", alignItems:"flex-end", flexWrap:"wrap", gap:40 }}>
           <div>
-            <h2 style={{ fontFamily:"'Syne', sans-serif", fontSize:"clamp(28px, 3.5vw, 48px)", fontWeight:800, letterSpacing:"-0.035em", maxWidth:520, lineHeight:1.05, marginBottom:14 }}>
+            <h2 style={{ fontFamily:"'Bricolage Grotesque', sans-serif", fontSize:"clamp(28px, 3.5vw, 48px)", fontWeight:800, letterSpacing:"-0.035em", maxWidth:520, lineHeight:1.05, marginBottom:14 }}>
               Start today.<br/>Get smarter over time.
             </h2>
             <p style={{ fontSize:15, color:"var(--muted)", fontWeight:300 }}>No credit card. Import your first register in under 10 minutes.</p>

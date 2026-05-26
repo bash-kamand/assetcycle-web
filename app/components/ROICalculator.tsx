@@ -100,19 +100,19 @@ export default function ROICalculator() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, marginBottom: 32 }}>
             <div>
               <p style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(242,238,234,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Maintenance savings</p>
-              <p style={{ fontFamily: "Syne, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{fmtK(r.maintenanceSaving)}</p>
+              <p style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{fmtK(r.maintenanceSaving)}</p>
             </div>
             <div>
               <p style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(242,238,234,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Failure prevention</p>
-              <p style={{ fontFamily: "Syne, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{fmtK(r.failureSaving)}</p>
+              <p style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{fmtK(r.failureSaving)}</p>
             </div>
             <div>
               <p style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(242,238,234,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Time saved / year</p>
-              <p style={{ fontFamily: "Syne, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{r.timeSaved}h</p>
+              <p style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{r.timeSaved}h</p>
             </div>
             <div>
               <p style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(242,238,234,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Payback period</p>
-              <p style={{ fontFamily: "Syne, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{r.payback}mo</p>
+              <p style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontSize: 28, fontWeight: 800, color: "#f2eeea", letterSpacing: "-0.03em" }}>{r.payback}mo</p>
             </div>
           </div>
 
@@ -120,11 +120,11 @@ export default function ROICalculator() {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
               <div>
                 <p style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(242,238,234,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Total annual savings</p>
-                <p style={{ fontFamily: "Syne, sans-serif", fontSize: 40, fontWeight: 800, color: "#1ab8e8", letterSpacing: "-0.04em", lineHeight: 1 }}>{fmtK(r.totalSaving)}</p>
+                <p style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontSize: 40, fontWeight: 800, color: "#1ab8e8", letterSpacing: "-0.04em", lineHeight: 1 }}>{fmtK(r.totalSaving)}</p>
               </div>
               <div style={{ textAlign: "right" }}>
                 <p style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(242,238,234,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>vs. ~{fmtK(r.annualFee)}/yr</p>
-                <p style={{ fontFamily: "Syne, sans-serif", fontSize: 28, fontWeight: 800, color: r.roi >= 0 ? "#4ade80" : "#f87171", letterSpacing: "-0.03em" }}>{r.roi > 0 ? "+" : ""}{r.roi}% ROI</p>
+                <p style={{ fontFamily: "Bricolage Grotesque, sans-serif", fontSize: 28, fontWeight: 800, color: r.roi >= 0 ? "#4ade80" : "#f87171", letterSpacing: "-0.03em" }}>{r.roi > 0 ? "+" : ""}{r.roi}% ROI</p>
               </div>
             </div>
           </div>
