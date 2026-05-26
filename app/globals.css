@@ -3,8 +3,8 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: "Outfit", system-ui, sans-serif;
-  background: #07111E;
-  color: #EDE9DF;
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: #07111a;
+  color: #f0ede8;
   -webkit-font-smoothing: antialiased;
 }
