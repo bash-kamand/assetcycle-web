@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
-
 export const metadata: Metadata = {
-  title: "AssetCycle – Fixed Asset Lifecycle Management",
-  description: "Track fixed assets from acquisition to disposal. Depreciation, work orders, lifecycle forecasting, and field inspection — all in one platform.",
+  title: "AssetCycle – Self-Learning Asset Management",
+  description: "The asset management platform that gets more accurate over time. Condition assessments, lifecycle forecasting, and compliance reporting — all in one system.",
   openGraph: {
-    title: "AssetCycle – Fixed Asset Lifecycle Management",
-    description: "Know every asset. Plan every cost.",
+    title: "AssetCycle – Self-Learning Asset Management",
+    description: "The platform that learns while you work.",
     url: "https://assetcycle.com.au",
     siteName: "AssetCycle",
   },
@@ -17,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
