@@ -281,6 +281,46 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Founders */}
+      <section style={{ padding:"88px 44px", borderBottom:"1px solid var(--rule)" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:14 }}>Who we are</p>
+          <h2 style={{ fontFamily:"'Instrument Serif', serif", fontSize:"clamp(26px, 3vw, 40px)", fontWeight:400, letterSpacing:"-0.01em", marginBottom:16 }}>
+            Built by people who&apos;ve done the work.
+          </h2>
+          <p style={{ fontSize:16, color:"var(--muted)", fontWeight:300, lineHeight:1.75, maxWidth:600, marginBottom:56 }}>
+            Not another tech company that read about asset management. We combine 20+ years of hands-on industry experience with modern AI development.
+          </p>
+          <div className="two-grid">
+            {[
+              {
+                name: "Joseph",
+                role: "Operations & Industry",
+                bio: "15+ years surveying and project managing assets across NSW — units, complexes, houses, commercial properties. Unique mix of on-field assessment experience and behind-the-desk asset management planning. He knows what asset managers actually need on a Monday morning.",
+                tags: ["Field Surveying", "Project Management", "Asset Condition", "NSW & Beyond"],
+              },
+              {
+                name: "Bashir",
+                role: "Technology & AI",
+                bio: "Background in fintech and AI product development. Has built and shipped software across property and financial services. Now applying modern AI to an industry that's been stuck in PDFs and spreadsheets for two decades.",
+                tags: ["AI Development", "Product", "Fintech", "Software Architecture"],
+              },
+            ].map(f => (
+              <div key={f.name} style={{ background:"var(--bg2)", border:"1px solid var(--rule)", borderRadius:10, padding:"40px 36px" }}>
+                <p className="mono" style={{ fontSize:9, letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:12 }}>{f.role}</p>
+                <h3 style={{ fontSize:22, fontWeight:600, letterSpacing:"-0.02em", marginBottom:18, color:"var(--text)" }}>{f.name}</h3>
+                <p style={{ fontSize:14, color:"var(--muted)", lineHeight:1.8, fontWeight:300, marginBottom:24 }}>{f.bio}</p>
+                <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+                  {f.tags.map(t => (
+                    <span key={t} className="mono" style={{ fontSize:10, letterSpacing:"0.08em", padding:"5px 10px", border:"1px solid var(--rule)", borderRadius:4, color:"var(--muted)" }}>{t}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Social proof placeholder */}
       <section style={{ padding:"64px 44px", borderBottom:"1px solid var(--rule)" }}>
         <div style={{ maxWidth:680, margin:"0 auto", textAlign:"center" }}>
