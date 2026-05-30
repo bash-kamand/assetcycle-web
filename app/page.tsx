@@ -1,3 +1,5 @@
+import MaintenancePlanner from "./components/MaintenancePlanner";
+
 const Logo = ({ size = 30, stroke = "#0d0d0d" }: { size?: number; stroke?: string }) => (
   <svg width={size} height={size} viewBox="-6 -6 112 112" fill="none">
     <path d="M 92 50 A 42 42 0 1 0 72.7 79.7" stroke={stroke} strokeWidth="11" strokeLinecap="round" fill="none"/>
@@ -163,6 +165,21 @@ export default function Home() {
           <p style={{ fontSize:15, color:"var(--muted)", lineHeight:1.7, fontWeight:300, maxWidth:680, borderLeft:"2px solid var(--cyan)", paddingLeft:20 }}>
             Day 1 it uses industry benchmarks. Year 2 it runs on your portfolio&apos;s real history. No static system can do that.
           </p>
+        </div>
+      </section>
+
+
+      {/* Maintenance Planning */}
+      <section style={{ padding:"88px 44px", borderBottom:"1px solid var(--rule)" }}>
+        <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          <p className="mono" style={{ fontSize:10, letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--cyan)", marginBottom:14 }}>Maintenance planning</p>
+          <h2 style={{ fontFamily:"'Instrument Serif', serif", fontSize:"clamp(26px, 3vw, 40px)", fontWeight:400, letterSpacing:"-0.01em", marginBottom:16 }}>
+            See your next 10 years. Before they happen.
+          </h2>
+          <p style={{ fontSize:16, color:"var(--muted)", fontWeight:300, lineHeight:1.75, maxWidth:580, marginBottom:56 }}>
+            Toggle between reactive and planned maintenance to see the 10-year cost difference. Then see how the forecast accuracy compounds as AssetCycle learns your portfolio.
+          </p>
+          <MaintenancePlanner/>
         </div>
       </section>
 
